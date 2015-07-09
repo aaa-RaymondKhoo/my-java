@@ -1,0 +1,67 @@
+import java.awt.Color;
+
+import acm.graphics.*;
+import acm.program.*;
+
+public class Bounce extends GraphicsProgram {
+
+	private static final int SCREEN_HEIGHT = 600;
+	private static final int SCREEN_WIDTH = 800;
+
+	private static final int PAUSE_TIME = 1;
+	private static final int BALL_SIZE = 50;
+
+	public void run (){
+		this.resize(SCREEN_WIDTH, SCREEN_HEIGHT);
+
+		// first we create the ball
+		GOval puck = new GOval (SCREEN_HEIGHT/2, SCREEN_HEIGHT/2,BALL_SIZE,BALL_SIZE);
+		puck.setFillColor(Color.BLACK);
+		puck.setFilled(true);
+		add(puck);
+
+		// now we create the text
+		GLabel text = new GLabel("This is my bouncy ball program", SCREEN_WIDTH, SCREEN_HEIGHT/2);
+		text.setFont("SansSerif-BOLD-50");
+		text.setColor(Color.BLUE);
+		add(text);
+
+		int dx = 1;
+		int dy = 1;
+		int tx = -1;
+		int ty = 0;
+
+		while (true) {
+			// here is where the BALL movement starts
+			puck.move(dx, dy);
+			pause (PAUSE_TIME);
+
+			// here we get the x or y values and if they touch the screen margins they dx or dy get negated
+			if (puck.getX() == SCREEN_WIDTH - BALL_SIZE) {
+				dx = -dx;
+			}
+
+			if (puck.getY() == SCREEN_HEIGHT - BALL_SIZE) {
+				dy = -dy;
+			}
+
+			if (puck.getX() == 0 ) {
+				dx = -dx;
+			}
+
+			if (puck.getY() == 0 ) {
+				dy = -dy;
+			}
+
+			// here we get the text to move from right to left
+			text.move(tx, ty);
+
+			pause(PAUSE_TIME);
+
+			if (text.getX() == 0-text.getWidth() ) {
+				text.setLocation(SCREEN_WIDTH, SCREEN_HEIGHT/2);
+			}
+
+		}
+
+	}

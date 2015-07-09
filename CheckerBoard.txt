@@ -1,0 +1,57 @@
+import java.awt.Color;
+
+import acm.graphics.*;
+import acm.program.*;
+
+public class Checkboard extends GraphicsProgram {
+
+	public static final int APPLICATION_WIDTH = 800; 
+	public static final int APPLICATION_HEIGHT = 600;
+
+	public static final int SIDE = APPLICATION_HEIGHT/8;
+//	public static final int N_STEPS = 1000;
+
+	public void run (){
+
+		this.resize(APPLICATION_WIDTH, APPLICATION_HEIGHT);
+
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+  				double x = (APPLICATION_WIDTH/2 - APPLICATION_HEIGHT/2) + (j * SIDE);
+				double y = i * SIDE;
+
+				//Here we draw the squares
+				GRect square = new GRect(x, y, SIDE, SIDE);
+				square.setFillColor(Color.gray);
+				square.setFilled((i + j) % 2 == 0);
+				add(square);
+
+				// Here we draw the circles
+				GOval circle = new GOval (x+5,y+5, SIDE-10, SIDE-10);
+				if ((i + j) % 2 == 0 && i < 2) {					
+					circle.setFillColor(Color.red);
+					circle.setFilled(true);
+					add(circle);
+
+				// make circle move (define the distance it travels)
+//					double dx = (APPLICATION_WIDTH - SIDE)/N_STEPS;
+//					double dy = (APPLICATION_HEIGHT - SIDE)/N_STEPS;
+
+				} else if ((i + j) % 2 == 0 && i > 5) {
+
+					circle.setFillColor(Color.black);
+					circle.setFilled(true);
+					add(circle);
+
+				}
+
+			}			
+
+		}
+
+	}
+
+
+
+
+}
